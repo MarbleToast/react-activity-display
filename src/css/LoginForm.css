@@ -1,0 +1,28 @@
+.LoginForm {
+    margin: 0;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+}
+
+input[type=text], input[type=password] {
+    display: block;
+    font-size: 14pt;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid var(--bg-colour-light);
+    border-image: linear-gradient(to left, var(--bg-colour-light), var(--bg-colour-dark));
+    border-image-slice: 1;
+}
+
+input[type=text]:hover, input[type=password]:hover,
+input[type=text]:focus, input[type=password]:focus {
+    transition: 0.5s ease;
+    color: var(--bg-colour-dark);
+}
+
+.error-msg {
+    color: red;
+    font-weight: bold;
+}

@@ -1,0 +1,24 @@
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', 'Roboto';
+
+    color: #494949;
+
+    background: linear-gradient(-45deg, var(--bg-colour-light), var(--bg-colour-dark));
+	background-size: 400% 400%;
+	animation: bg-colour-sway 20s cubic-bezier(0.6, 0.28, 0.735, 0.045) infinite;
+    height: 100vh;
+}
+
+@keyframes bg-colour-sway {
+    0% {
+		background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}

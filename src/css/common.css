@@ -1,0 +1,90 @@
+:root {
+    --bg-colour-light: #50E2C2;
+    --bg-colour-dark: #636FA4;
+    --trim-colour: #dedede;
+    --clickables-font-size: 12pt;
+}
+
+.fade-in {
+    animation: fadein 1s;
+}
+
+.colour-pulse:hover {
+    animation: colour-pulse 10s ease infinite;
+}
+
+button {
+    border: 0;
+    padding: 10px;
+    width: 100%;
+    background-color: var(--trim-colour);
+    font-size: var(--clickables-font-size);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bolder;
+    padding: 5px;
+    color: inherit;
+    font-family: 'Segoe UI', 'Roboto';
+    border-radius: 10px;
+}
+
+button:hover {
+    transition: 0.5s ease;
+    color: var(--bg-colour-light);
+    cursor: pointer;
+}
+
+button:focus {
+    animation: press 0.5s;
+}
+
+.loading {
+    border: 16px solid var(--trim-colour);
+    border-top: 16px solid var(--bg-colour-light);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 2s ease infinite;
+    margin: 0 auto;
+    margin-top: 150px;
+}
+
+@keyframes colour-pulse {
+    0% {
+    }
+    50% {
+        color: var(--bg-colour-dark);
+    }
+    100% {
+    }
+}
+
+@keyframes press {
+    0% {
+        filter: brightness(100%);
+    }
+    50% {
+        filter: brightness(50%);
+    }
+    100% {
+        filter: brightness(100%);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
