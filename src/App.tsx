@@ -1,3 +1,7 @@
+// App.tsx
+// Main App
+
+// Imports
 import React, {useContext} from 'react';
 import {BrowserRouter, Switch, Route, Redirect} from "react-router-dom";
 
@@ -7,10 +11,14 @@ import {AuthContext} from "./firebaseContext";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from './components/LoginForm';
 import Header from "./components/Header";
-import ActivityDisplay from './components/ActivityPanel';
+import ActivityDisplay from './components/ActivityDisplay';
+
 
 const App: React.FC = () => {
+
+    // Get Firebase info
     const {authUser, firebase} = useContext(AuthContext);
+    
     return (
         <BrowserRouter>
             <div className="App">
