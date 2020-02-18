@@ -1,3 +1,7 @@
+// Header.tsx
+// Header for the display
+
+//Imports
 import React from "react";
 import {Link} from "react-router-dom";
 import firebase from "firebase";
@@ -5,7 +9,7 @@ import firebase from "firebase";
 import "../css/common.css";
 import "../css/Header.css";
 
-
+// Props and State interface
 interface IHeaderProps {
     user: firebase.User | null | undefined;
 }
@@ -25,6 +29,7 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
     componentDidMount() {
         setTimeout(
             () => {
+                // Just gives time for objects to load Firebase info
                 this.setState({isLoading: false});
             },
             1000

@@ -1,18 +1,24 @@
-import React from "react";
-import {IActivityAttributes} from "./ActivityPanel";
+// Activity.tsx
+// Component for rendering an activity in the Activity Display
 
+// Imports
+import React from "react";
+import {IActivityAttributes} from "./ActivityDisplay";
+
+// Props and State interface
 interface IActivityProps {
     className?: string,
     activity: IActivityAttributes,
     sortToTop: Function,
     sortToBottom: Function
 }
-
 interface IActivityState {
     showMoreInfo: boolean;
 }
 
+// Activity class
 class Activity extends React.Component<IActivityProps, IActivityState> {
+
     constructor(props: IActivityProps) {
         super(props);
         this.state = {
@@ -21,6 +27,7 @@ class Activity extends React.Component<IActivityProps, IActivityState> {
     }
 
     toggleShowMoreInfo() {
+        // Sets the more info flag to its inverse
         this.setState({showMoreInfo: !this.state.showMoreInfo});
     }
 

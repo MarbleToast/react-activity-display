@@ -1,14 +1,19 @@
+// LoginForm.tsx
+// Form for logging into Firebase and accessing full functionality
+
+// Imports
 import React from "react";
 import firebase from "firebase";
 
 import "../css/common.css";
 import "../css/LoginForm.css";
-import { Redirect } from "react-router-dom";
+import {Redirect} from "react-router-dom";
 
-
+// Props and State interface
 interface ILoginFormProps {
     firebase: typeof firebase
 }
+
 interface ILoginFormState {
     email: string,
     password: string,
@@ -17,26 +22,32 @@ interface ILoginFormState {
     error?: string
 }
 
+
 class LoginForm extends React.Component<ILoginFormProps, ILoginFormState> {
 
+    // flag for checking mounted, stopping memory leaks
     _isMounted: boolean;
 
     constructor(props: ILoginFormProps) {
         super(props);
+
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this._isMounted = false;
 
+        // Init state
         this.state = {
             email: "",
             password: "",
             redirect: false,
-            isLoading: true,
-            error: undefined
+            isLoading: true
         }
     }
 
     componentDidMount() {
+
+        // Gives a second to load Firebase, room for other logic
+        // also makes the fade-in consistent with the header but hey
         this._isMounted = true;
         setTimeout(
             () => {
@@ -47,32 +58,40 @@ class LoginForm extends React.Component<ILoginFormProps, ILoginFormState> {
         )
     }
 
-    handleEmailChange(event: any) {
-        if (!this.state.isLoading && this._isMounted) this.setState({email: event.target.value});
-    }
-    handlePasswordChange(event: any) {
-        if (!this.state.isLoading && this._isMounted) this.setState({password: event.target.value});
+    // Form field event listeners
+    handleEmailChange(event: React.SyntheticEvent<HTMLInputElement>) {
+        if (!this.state.isLoading && this._isMounted) this.setState({email: event.currentTarget.value});
     }
 
+    handlePasswordChange(event: React.SyntheticEvent<HTMLInputElement>) {
+        if (!this.state.isLoading && this._isMounted) this.setState({password: event.currentTarget.value});
+    }
+
+
+    // Sign in function
+    // In built
     signIn() {
-        this.props.firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-            .then(
-                () => {
-                    this.setState({redirect: true});
-                }
-            )
-            .catch(
-                (error) => {
-                    this.setState({
-                        redirect: false,
-                        error: error.code
-                    });
-                    console.log(error);
-                }
-            );
+        if (this.state.email && this.state.password && this._isMounted) {
+            this.props.firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+                .then(
+                    () => {
+                        this.setState({redirect: true});
+                    }
+                )
+                .catch(
+                    (error) => {
+                        this.setState({
+                            redirect: false,
+                            error: error.code
+                        });
+                        console.log(error);
+                    }
+                );
+        }
     }
 
     componentWillUnmount() {
+        // Unsetting flag to stop leaks
         this._isMounted = false;
     }
 

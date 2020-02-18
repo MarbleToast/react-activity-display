@@ -1,3 +1,7 @@
+// RegisterForm.tsx
+// Form for registering new users
+
+// Imports
 import React from "react";
 import firebase from "firebase";
 
@@ -6,9 +10,11 @@ import "../css/RegisterForm.css";
 import { Redirect } from "react-router-dom";
 
 
+//State and Props interface
 interface IRegisterFormProps {
     firebase: typeof firebase
 }
+
 interface IRegisterFormState {
     email: string,
     password: string,
@@ -17,6 +23,7 @@ interface IRegisterFormState {
     isLoading: boolean,
     error?: string
 }
+
 
 class RegisterForm extends React.Component<IRegisterFormProps, IRegisterFormState> {
 
@@ -35,12 +42,12 @@ class RegisterForm extends React.Component<IRegisterFormProps, IRegisterFormStat
             password: "",
             confirmPassword: "",
             redirect: false,
-            isLoading: true,
-            error: undefined
+            isLoading: true
         }
     }
 
     componentDidMount() {
+        // Time for Firebase
         this._isMounted = true;
         setTimeout(
             () => {
@@ -51,18 +58,22 @@ class RegisterForm extends React.Component<IRegisterFormProps, IRegisterFormStat
         )
     }
 
-    handleEmailChange(event: any) {
-        if (!this.state.isLoading && this._isMounted) this.setState({email: event.target.value});
+    // Form field event listeners, using any because making an interface for the event object
+    // is a lot of extraneous data
+    handleEmailChange(event: React.SyntheticEvent<HTMLInputElement>) {
+        if (!this.state.isLoading && this._isMounted) this.setState({email: event.currentTarget.value});
     }
-    handlePasswordChange(event: any) {
-        if (!this.state.isLoading && this._isMounted) this.setState({password: event.target.value});
+    handlePasswordChange(event: React.SyntheticEvent<HTMLInputElement>) {
+        if (!this.state.isLoading && this._isMounted) this.setState({password: event.currentTarget.value});
     }
-    handleConfirmPasswordChange(event: any) {
-        if (!this.state.isLoading && this._isMounted) this.setState({confirmPassword: event.target.value});
+    handleConfirmPasswordChange(event: React.SyntheticEvent<HTMLInputElement>) {
+        if (!this.state.isLoading && this._isMounted) this.setState({confirmPassword: event.currentTarget.value});
     }
 
+
     register() {
-        if (this.state.password === this.state.confirmPassword) {
+        // Firebase throws back errors we get so we just check if the two passwords are the same
+        if (this.state.password === this.state.confirmPassword && this._isMounted) {
             this.props.firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
             .then(
                 () => {
@@ -82,6 +93,7 @@ class RegisterForm extends React.Component<IRegisterFormProps, IRegisterFormStat
     }
 
     componentWillUnmount() {
+        // Unset to stop memory leaks
         this._isMounted = false;
     }
 
